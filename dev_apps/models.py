@@ -7,7 +7,7 @@ import uuid
 from users.models import Profile
 
 class Project(models.Model):
-    owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL) # many to one relationship
+    owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL) # many to one relationship Profile(parent)--> Project(child)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     feature_image = models.ImageField(null=True, blank=True, default="default.jpg")
@@ -32,7 +32,7 @@ class Review(models.Model):
     )
 
     #owner = 
-    project = models.ForeignKey(Project, on_delete=models.CASCADE) # one-to-many relationship Project-->Review
+    project = models.ForeignKey(Project, on_delete=models.CASCADE) # one-to-many relationship Project(parent)-->Review(child)
     body = models.TextField(null=True, blank=True)
     value = models.CharField(max_length=200, choices=VOTE_TYPE)
     created = models.DateTimeField(auto_now_add=True)
