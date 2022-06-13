@@ -1,8 +1,12 @@
 from email.policy import default
 from os import O_WRONLY
+import profile
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
+
+
+
 
 
 class Profile(models.Model):
@@ -25,7 +29,7 @@ class Profile(models.Model):
 
 
     def __str__(self):
-        return str(self.user.username) #convert the username that has a number value into str
+        return str(self.username) #convert the username that has a number value into str
 
 
 class Skill(models.Model):
@@ -38,3 +42,4 @@ class Skill(models.Model):
 
     def __str__(self):
         return str(self.name)
+

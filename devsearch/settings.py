@@ -27,8 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dev_apps',
-    'users',
+    'dev_apps.apps.DevAppsConfig',
+    'users.apps.UsersConfig', #instead of adding 'users' here we added 'users.apps.UsersConfig' so that the signals.py works.
 ]
 
 MIDDLEWARE = [
