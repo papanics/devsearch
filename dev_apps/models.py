@@ -27,7 +27,7 @@ class Project(models.Model):
     class Meta:
         ordering = ['-vote_ratio', '-vote_total', 'title'] # the project with the highest total vote ratio or vote total will be the first on the list.
 
-    @property
+    @property # run this as an attribute and not as an actual method
     def reviewers(self):
         queryset = self.review_set.all().values_list('owner__id', flat=True) #query all the review and then all the owner id of that reviews
         return queryset
