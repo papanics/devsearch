@@ -40,7 +40,7 @@ def getProject(request, pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def projectVote(request, pk):
-    project = Project.object.get(id=pk)
+    project = Project.objects.get(id=pk)
     user = request.user.profile # remember that the user is no longer in the session, it is in the token.
     data = request.data
 
