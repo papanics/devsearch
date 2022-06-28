@@ -30,7 +30,8 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.username) #convert the username that has a number value into str
 
-
+    class Meta:
+        ordering = ['created'] #add this to avoid the issue in pagination
 
     @property
     def imageURL(self): #FIXES: to avoid th throw an error on the page when the profile image is deleted.
