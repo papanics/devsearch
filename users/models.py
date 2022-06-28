@@ -31,6 +31,16 @@ class Profile(models.Model):
         return str(self.username) #convert the username that has a number value into str
 
 
+
+    @property
+    def imageURL(self): #FIXES: to avoid th throw an error on the page when the profile image is deleted.
+        try:
+            url = self.profile_image.url
+        except:
+            url = ''
+        return url
+
+
 class Skill(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True) # parent(Profile)-child(Skill) relationship
     name = models.CharField(max_length=200, blank=True, null=True)

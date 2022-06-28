@@ -7,7 +7,7 @@ import uuid
 from users.models import Profile
 
 class Project(models.Model):
-    owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL) # many to one relationship Profile(parent)--> Project(child)
+    owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE) # many to one relationship Profile(parent)--> Project(child)
     title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     feature_image = models.ImageField(null=True, blank=True, default="default.jpg")
@@ -26,6 +26,15 @@ class Project(models.Model):
 
     class Meta:
         ordering = ['-vote_ratio', '-vote_total', 'title'] # the project with the highest total vote ratio or vote total will be the first on the list.
+
+    @property
+    def imageURL(self): #FIXES: to avoid th throw an error on the page when the project image is deleted.
+        try:
+            url = self.feature_image.url
+        except:
+            url = ''
+        return url
+
 
     @property # run this as an attribute and not as an actual method
     def reviewers(self):
