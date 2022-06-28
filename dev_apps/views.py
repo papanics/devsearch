@@ -57,7 +57,7 @@ def createProject(request):
             for tag in newtags:
                 tag, created = Tag.objects.get_or_create(name=tag) #create the new tag or if exit do not create it 
                 project.tags.add(tag)
-                
+
             messages.success(request, 'Added Project successfully!')
             return redirect('account')
 
@@ -84,7 +84,7 @@ def updateProject(request, pk):
             messages.success(request, 'Skill was updated successfully!')
             return redirect('account')
 
-    context = {'form': form}
+    context = {'form': form, 'project': project}
     return render(request, "dev_apps/project_form.html", context)
 
 @login_required(login_url="login")
