@@ -45,11 +45,19 @@ def createProject(request):
     form = ProjectForm()
 
     if request.method == 'POST':
+        newtags = request.POST.get('newtags').replace(',', " ").split() #split each word that has spaces ex. DATA: ['CSS', 'Java', 'HTML']
+        # .replace(',', " ") --> cleaning the data by replacing the comma by empty value.
+
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
             project.owner = profile # 2. associating with the project owner
             project.save()
+
+            for tag in newtags:
+                tag, created = Tag.objects.get_or_create(name=tag) #create the new tag or if exit do not create it 
+                project.tags.add(tag)
+                
             messages.success(request, 'Added Project successfully!')
             return redirect('account')
 
@@ -63,9 +71,16 @@ def updateProject(request, pk):
     form = ProjectForm(instance=project)
 
     if request.method == 'POST':
+        newtags = request.POST.get('newtags').replace(',', " ").split() #split each word that has spaces ex. DATA: ['CSS', 'Java', 'HTML']
+        # .replace(',', " ") --> cleaning the data by replacing the comma by empty value.
+
+
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             form.save()
+            for tag in newtags:
+                tag, created = Tag.objects.get_or_create(name=tag) #create the new tag or if exit do not create it 
+                project.tags.add(tag)
             messages.success(request, 'Skill was updated successfully!')
             return redirect('account')
 
